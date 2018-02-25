@@ -1,0 +1,78 @@
+
+# coding: utf-8
+
+# In[1]:
+
+
+import folium
+import pandas as pd
+
+
+# In[97]:
+
+
+#define a variable spelly with coordinated to spelman. zoom in on a point
+spelly = folium.Map(location=[33.7450, -84.4113],
+                        zoom_start =17.49)
+
+#Mark a specific coordinate location
+#Setting all markers
+
+#Albert E. Manley College Center 
+marker = folium.Marker(location=[33.7451, -84.4115]).add_to(spelly)
+
+#another building
+milligan = folium.Marker(location=[33.7442, -84.41305]).add_to(spelly)
+
+
+
+
+
+
+
+spelly
+
+
+# In[2]:
+
+
+
+from ipywidgets import widgets
+
+
+# In[6]:
+
+
+from IPython.display import display
+text = widgets.Text()
+display(text)
+
+def handle_submit(sender):
+    print(text.value)
+    
+text.on_submit(handle_submit)
+
+
+# In[10]:
+
+
+button = widgets.Button(description = "Click Me Babez")
+display(button)
+
+def on_button_clicked(b):
+    print("I like dat.")
+    
+button.on_click(on_button_clicked)
+
+
+# In[11]:
+
+
+button = widgets.Button(description = "Jeffery Ehme")
+display(button)
+
+def on_button_clicked(b):
+    print("Office: Science Center 323")
+    
+button.on_click(on_button_clicked)
+
