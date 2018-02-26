@@ -1,0 +1,901 @@
+import folium
+import pandas as pd
+
+
+
+
+#define a variable spelly with coordinated to spelman. zoom in on a point
+spelly = folium.Map(location=[33.7450, -84.4113],
+                        zoom_start =17.49)
+
+#-------------------------------------------------------------------------------------------------------------------
+htmlMILL = '''<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #99ccff;
+}
+</style>
+</head>
+<body>
+<center>
+
+<h2>Milligan Hall</h2>
+</center>
+<table>
+  <tr> 
+    <th>Name</th>
+    <th>Rm Number</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td>Harold Bell-Director</td>
+    <td>n/a</td>
+    <td>(404) 270-5269</td>
+    <td>hbell@spelman.edu </td>
+    
+  </tr>
+  <tr>
+    <td>Toni Ireland - Assistant Director</td>
+    <td>n/a </td>
+    <td>(404) 270-5270</td>
+    <td>tireland@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Dalayna Johnson-Career Counselor </td>
+    <td>n/a</td>
+    <td>(404) 270-5271</td>
+    <td>sjohn100@spelman.edu</td>  
+  </tr> 
+  
+  
+</table>
+
+</body>
+</html>
+'''
+#-------------------------------------------------------------------------------------------------------------------
+htmlGILES = '''<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #99ccff;
+}
+</style>
+</head>
+<body>
+<center>
+<h2>Giles Hall</h2>
+</center>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Room Number</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td>Robert Brown</td>
+    <td>205</td>
+    <td>(404) 270-5685</td>
+    <td>rbrown61@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Dorian Crosby</td>
+    <td>218</td>
+    <td>(404) 270-5648 </td>
+    <td>dcrosby1@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Marilyn Davis</td>
+    <td>216</td>
+    <td>(404) 270-5649</td>
+    <td>mdavis1@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Tinaz Pavri</td>
+    <td>219</td>
+    <td>(404) 270-5650</td>
+    <td>tpavri@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Fatemeh Shafiei</td>
+    <td>221</td>
+    <td>(404) 270-5653</td>
+    <td>fshafiei@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Unislawa Williams</td>
+    <td>215</td>
+    <td>(404) 270-5654</td>
+    <td>uwilliams@spelman.edu</td>
+  </tr>
+</table>
+
+</center>
+</body>
+</html>
+'''
+#-------------------------------------------------------------------------------------------------------------------
+
+htmlTAPLEY = '''<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #99ccff;
+}
+</style>
+</head>
+<body>
+<center>
+<h2>Tapley Hall</h2>
+</center>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Room Number</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td>Kiandra Johnson</td>
+    <td>311</td>
+    <td>(404) 270-5829</td>
+    <td>kjohn114@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Mohammed Tesemma</td>
+    <td>309</td>
+    <td>(404) 270-5840</td>
+    <td>mtesemma@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Bhikhari Tharu</td>
+    <td>330</td>
+    <td>(404) 270-5830</td>
+    <td>btharu@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Jaye Nias</td>
+    <td>218</td>
+    <td>(404) 270-5873</td>
+    <td>jnias@spelman.edu</td>
+  </tr>
+</table>
+
+</body>
+</html>
+'''
+#-------------------------------------------------------------------------------------------------------------------
+
+htmlPACK = '''<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #99ccff;
+}
+</style>
+</head>
+<body>
+
+<center>
+<h2>Packard Hall</h2>
+</center>
+
+<table>
+  <tr>
+    <th>Department</th>
+    <th>Floor</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td>Office of Financial Aid</td>
+    <td>1st</td>
+    <td>(404) 270-5222 </td>
+    <td>n/a</td>
+  </tr>
+  <tr>
+    <td>Office of Registrar Staff</td>
+    <td>2nd</td>
+    <td>(404) 270-5230</td>
+    <td>jbrow109@spelman.edu </td>
+  </tr>
+  <tr>
+    <td>Office of Admissions</td>
+    <td>3rd</td>
+    <td>(404) 270-5193</td>
+    <td>admiss@spelman.edu</td>
+  </tr>
+  
+</table>
+
+</body>
+</html>
+'''
+#-------------------------------------------------------------------------------------------------------------------
+
+htmlSCICENTER = '''<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #99ccff;
+}
+</style>
+</head>
+<body>
+
+<center>
+<h2>Science Center</h2>
+</center>
+
+<table>
+  <tr>
+    <th>Professor</th>
+    <th>Rm Number</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td>Mark Maloney</td>
+    <td>279</td>
+    <td>(404) 270-5719 </td>
+    <td>mmaloney@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Kimberly Jackson</td>
+    <td>343</td>
+    <td>(404) 270-5792</td>
+    <td>kjackson@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Albert Thompson, Jr.</td>
+    <td>153</td>
+    <td>(404) 270-5750 </td>
+    <td>athompso@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Brandeis Marshall</td>
+    <td>314</td>
+    <td>(404) 270-5877</td>
+    <td>brandeis.marshall@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Rosalind Gregory-Bass</td>
+    <td>284</td>
+    <td>(404) 270-5773 </td>
+    <td>rbass@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Monica Stephens Cooley</td>
+    <td>n/a</td>
+    <td>n/a</td>
+    <td>mstephens@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Natarajan Ravi</td>
+    <td>321</td>
+    <td>(404) 270-5857</td>
+    <td>nravi@spelman.edu</td>
+  </tr>
+</table>
+
+</body>
+</html>
+'''
+#-------------------------------------------------------------------------------------------------------------------
+
+htmlCOSBY = '''<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #99ccff;
+}
+</style>
+</head>
+<body>
+
+<center>
+<h2>Camille Olivia Hanks Cosby, Ed D. Academic Center</h2>
+</center>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Room Number</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td>Johnnella Butler</td>
+    <td>n/a</td>
+    <td>n/a</td>
+    <td>jebutler@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Alix Chapman</td>
+    <td>213</td>
+    <td>(404) 270-5667</td>
+    <td> achapma3@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Beverly Guy-Sheftall</td>
+    <td>209</td>
+    <td>(404) 270-5624</td>
+    <td> bsheftal@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>M. Bahati Kuumba</td>
+    <td>210</td>
+    <td>(404) 270-5630 </td>
+    <td>kuumba@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Kristen Abatsis McHenry</td>
+    <td>n/a</td>
+    <td>n/a</td>
+    <td> kmchenr2@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Veta Goler</td>
+    <td>409</td>
+    <td>(404) 270-5473</td>
+    <td> vgoler@spelman.edu</td>
+  </tr>  
+  <tr>
+    <td>Victor Rojas</td>
+    <td>316</td>
+    <td>n/a</td>
+    <td> vrojas@spelman.edu </td>
+  </tr>
+  <tr>
+    <td>Tikenya Foster-Singletary</td>
+    <td>314</td>
+    <td>(404) 270-5595</td>
+    <td> tfosters@spelman.edu</td>
+  </tr> 
+ <tr>
+    <td>Donna Akiba Harper</td>
+    <td>315</td>
+    <td>(404) 270-5588</td>
+    <td> dharper@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Dalila De Sousa</td>
+    <td>407</td>
+    <td>(404) 270-5503</td>
+    <td> tddesousa@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Jeanne Meadows</td>
+    <td>404</td>
+    <td>(404) 270-5548</td>
+    <td>  jmeadows@spelman.edu</td>
+  </tr>
+
+  <tr>
+    <td>Gertrude Gonzales de Allen</td>
+    <td>437</td>
+    <td>(404) 270-5520</td>
+    <td> gallen@spelman.edu</td>
+  </tr>
+
+  <tr>
+    <td>Julio González-Ruiz</td>   
+   <td>458</td>
+    <td>(404) 270-5551</td>
+    <td>  jgonzalezruiz@spelman.edu</td>
+  </tr>
+  </table>
+
+</body>
+</html>
+'''
+
+#-------------------------------------------------------------------------------------------------------------------
+
+htmlFINART = '''<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #99ccff;
+}
+</style>
+</head>
+<body>
+
+<center>
+<h2>Rockefeller Fine Arts Building</h2>
+</center>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Room Number</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td>Brittney Boykin</td>
+    <td>112</td>
+    <td>n/a</td>
+    <td>bboykin1@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Hyunjung Rachel Chung</td>
+    <td>105</td>
+    <td>(404) 297-5497</td>
+    <td>hchung@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Laura English-Robinson</td>
+    <td>104</td>
+    <td>(404) 270-5477</td>
+    <td>lrobins1@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Paula A. Grissom-Broughton</td>
+    <td>112</td>
+    <td>(404) 270-5494</td>
+    <td>pgrissom@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Kevin Johnson</td>
+    <td>103</td>
+    <td>(404) 270-5480</td>
+    <td> kjohns10@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Ralph Jones</td>
+    <td>116</td>
+    <td>(404) 270-5476</td>
+    <td> rjones48@spelman.edu</td>
+  </tr>  
+  <tr>
+    <td>Carlos Simon</td>
+    <td>n/a</td>
+    <td>n/a</td>
+    <td> csimon5@spelman.edu</td>
+  </tr>
+  </table>
+
+</body>
+</html>
+'''
+
+
+
+#-------------------------------------------------------------------------------------------------------------------
+
+htmlMacV = '''<!DOCTYPE html>
+<html>
+<style>
+
+body{background-color: #99ccff
+}
+
+</style>
+<body>
+
+<center><h2>MacVicar Health Services</h2>
+
+<p>Hours of operations<br />
+Monday - Friday, 8:30 a.m. - 5 p.m.</p>
+
+<p>(404) 270-5249</p></center>
+
+
+</body>
+</html>
+'''
+
+#------------------------------------------------------------------------------------------------------
+
+htmlBookOffice = '''<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px; 
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</style>
+</head>
+<body>
+<center>
+<div class="row">
+  <div class="column" style="background-color:#99ccff;">
+    <h2>Bookstore</h2>
+    <p>Hours of operation<br />
+Monday - Friday, 8:30 a.m. - 5 p.m.<br />
+Saturday, 12 - 4 p.m.<br />
+Sunday - Closed</p>
+	<p>(404) 523-8520</p>
+  </div>
+  <div class="column" style="background-color:#99ccff;">
+    <h2>Post Office</h2>
+    <p>Hours of operation<br />
+    Monday - Friday,  11:30 a.m. – 4:50 p.m.<br/>
+Saturday, 10 a.m. – Noon  (Window service and Express Mail deliveries only.)<br/>
+Sunday - Closed</p>
+	<p>(404) 270-5858</p>
+  </div>
+</div>
+</center>
+</body>
+</html>
+'''
+
+
+#-------------------------------------------------------------------------------------------------------------------
+htmlROCK = '''<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #99ccff;
+}
+</style>
+</head>
+<body>
+<center>
+<h2>Rockefeller Hall</h2>
+</center>
+<table> 
+  <tr>
+    <th>Name</th>
+    <th>Title</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td>Desiree Pedescleaux, Ph.D.</td>
+    <td>Dean</td>
+    <td>(404) 270-5696</td>
+    <td>dpedescl@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Geneva Baxter</td>
+    <td>Associate Dean</td>
+    <td>(404) 270-5699</td>
+    <td>gbaxter@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>DeKimberlen Neely, Ph.D.</td>
+    <td>Associate Dean</td>
+    <td>(404) 270-5695</td>
+    <td>dneely@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Stacy Washington, M.A.</td>
+    <td>Special Academic Programs Manager</td>
+    <td>(404) 270-5771</td>
+    <td>swashi37@spelman.edu</td>
+  </tr>
+  <tr>
+    <td>Tiffany Hemby, M.B.A.</td>
+    <td>Senior Administrative Assistant</td>
+    <td>(404) 270-5701</td>
+    <td>themby@spelman.edu</td>
+  </tr>
+  </table>
+
+</body>
+</html>
+'''
+
+
+
+#-------------------------------------------------------------------------------------------------------------------
+#Make a marker for Albert E. Manley Student Center
+studentCent = folium.RegularPolygonMarker(location = [33.7451, -84.4115], popup = 'Manley College Center', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+
+#Make a marker for Howard-Harreld Hall
+hh = folium.RegularPolygonMarker(location = [33.74485, -84.41205], popup = 'Howard-Harreld Hall', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+
+#Make a marker for Dorothy Shepard Manley Hall
+manley = folium.RegularPolygonMarker(location = [33.7453, -84.4124], popup = 'Dorothy Shepard Manley Hall', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Book Store/ Post Office
+
+iframeBKSTORE = folium.IFrame(html = htmlBookOffice, width = 500, height = 300)
+
+popupBKSTORE = folium.Popup(iframeBKSTORE, max_width = 2650)
+
+
+bookStore = folium.RegularPolygonMarker(location = [33.7454, -84.4119], popup = popupBKSTORE, fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Sally Sage McAlpin Hall
+sallyHall = folium.RegularPolygonMarker(location = [33.7450, -84.4126], popup = 'Sally Sage McAlpin Hall', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+
+#Make a marker for West Campus Parking Deck Public Safety
+parkingDeck = folium.RegularPolygonMarker(location = [33.7450, -84.4130], popup = 'West Campus Parking Deck Public Safety', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Donald and Isabel Stewart Living & Learning Center I
+llC1 = folium.RegularPolygonMarker(location = [33.7440, -84.4116], popup = 'Donald and Isabel Stewart Living & Learning Center I', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Johnnetta B. Cole Living & Learning Center II
+llC2 = folium.RegularPolygonMarker(location = [33.7434, -84.4109], popup = 'Johnnetta B. Cole Living & Learning Center II', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for LLCII Auditorium
+llC2Audit = folium.RegularPolygonMarker(location = [33.7437, -84.4107], popup = 'LLCII Auditorium', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Read Hall
+readHall = folium.RegularPolygonMarker(location = [33.7439, -84.4098], popup = 'Read Hall', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Sisters Chapel
+sisChap = folium.RegularPolygonMarker(location = [33.7445, -84.4100], popup = 'Sisters Chapel', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Reynolds Cottage
+reyCott = folium.RegularPolygonMarker(location = [33.744832, -84.410222339], popup = 
+'Reynolds Cottage', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Rockefeller Hall
+
+iframeROCK = folium.IFrame(html = htmlROCK, width = 500, height = 300)
+
+popupROCK = folium.Popup(iframeROCK, max_width = 2650)
+
+rockHall = folium.RegularPolygonMarker(location = [33.7453, -84.410667], popup = popupROCK, fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Packard Hall
+
+iframePACK = folium.IFrame(html= htmlPACK, width=500, height=300)
+
+popupPACK = folium.Popup(iframePACK, max_width=2650)
+
+packHall = folium.RegularPolygonMarker(location = [33.7459, -84.4110], popup = popupPACK, fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Giles Hall
+
+iframeGILES = folium.IFrame(html= htmlGILES, width=500, height=300)
+
+popupGILES = folium.Popup(iframeGILES, max_width=2650)
+
+gilesHall = folium.RegularPolygonMarker(location = [33.7466, -84.4108], popup = popupGILES, fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Abby Aldrich Rockefeller Hall
+abbyHall = folium.RegularPolygonMarker(location = [33.74659, -84.4103], popup = 'Abby Aldrich Rockefeller Hall', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Morehouse-James Hall
+moreJames = folium.RegularPolygonMarker(location = [33.7462, -84.4101], popup = 'Morehouse-James Hall', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Laura Spelman Hall
+lauraSpel = folium.RegularPolygonMarker(location = [33.7457, -84.4097], popup = 'Laura Spelman Hall', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Academic Computing Center
+compSetting = folium.RegularPolygonMarker(location = [33.7452, -84.4094], popup = 'Academic Computing Center', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Tapley Hall
+
+iframeTAPLEY = folium.IFrame(html= htmlTAPLEY, width=500, height=300)
+
+popupTAPLEY = folium.Popup(iframeTAPLEY, max_width=2650)
+
+tapleyH = folium.RegularPolygonMarker(location = [33.7449, -84.4092], popup = popupTAPLEY, fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Albro-Falconer-Manley Science Center
+
+iframeSCICENTER = folium.IFrame(html= htmlSCICENTER, width=500, height=300)
+
+popupSCICENTER = folium.Popup(iframeSCICENTER, max_width=2650)
+
+sciCenter = folium.RegularPolygonMarker(location = [33.7445, -84.4089], popup = popupSCICENTER, fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+
+#Make a marker for Camille Olivia Hanks Cosby, Ed D. Academic Center
+
+iframeCOSBY = folium.IFrame(html= htmlCOSBY, width=500, height=300)
+
+popupCOSBY = folium.Popup(iframeCOSBY, max_width=2650)
+
+cosby = folium.RegularPolygonMarker(location = [33.7460, -84.4123], popup = popupCOSBY, fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Bessie Strong Hall
+bessieHall = folium.RegularPolygonMarker(location = [33.7444, -84.41069], popup = 'Bessie Strong Hall', fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for MacVicar Health Services
+iframeMacV = folium.IFrame(html=htmlMacV, width=400, height = 175)
+
+popupMacV = folium.Popup(iframeMacV, max_width = 2650)
+
+macVicH = folium.RegularPolygonMarker(location = [33.7446, -84.4112], popup = popupMacV, fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Rockefeller Fine Arts Building
+iframeFINART = folium.IFrame(html= htmlFINART, width=500, height=300)
+
+popupFINART = folium.Popup(iframeFINART, max_width=2650)
+
+fineArts = folium.RegularPolygonMarker(location = [33.7464, -84.4132], popup = popupFINART , fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+#Make a marker for Milligan Building
+iframeMILL = folium.IFrame(html= htmlMILL, width=500, height=300)
+
+popupMILL = folium.Popup(iframeMILL, max_width=2650)
+
+parkingDeck = folium.RegularPolygonMarker(location = [33.7442, -84.4130], popup = popupMILL, fill_color='#00BFFF',
+    number_of_sides=4,
+    radius=9).add_to(spelly)
+
+
+spelly
+
+#spelly.save("spelly.html")
